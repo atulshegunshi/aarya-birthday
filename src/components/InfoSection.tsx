@@ -84,7 +84,7 @@ const InfoSection: React.FC = () => {
             title: "About Me",
             icon: <User size={28} />,
             content: [
-                "I am turning magnificent 7!",
+                "I am turning fabulous five!",
                 "I am super excited for my big day.",
                 "My favorite color is Blue (like Sonic!)."
             ],
@@ -94,7 +94,7 @@ const InfoSection: React.FC = () => {
             title: "My Hobbies",
             icon: <Heart size={28} />,
             content: [
-                "Building LEGO masterpieces.",
+                "I love running and jumping.",
                 "Playing soccer with my friends.",
                 "Drawing funny cartoons."
             ],
@@ -104,7 +104,7 @@ const InfoSection: React.FC = () => {
             title: "What I Love to Eat",
             icon: <Utensils size={28} />,
             content: [
-                "Pepperoni Pizza (Yum!)",
+                "Cheese Pizza",
                 "Chocolate Lava Cake.",
                 "ALL the ice cream."
             ],

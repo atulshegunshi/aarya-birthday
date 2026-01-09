@@ -42,7 +42,7 @@ const RSVPForm: React.FC = () => {
 
     if (status === 'success') {
         return (
-            <div className="w-full max-w-lg mx-auto bg-white rounded-3xl p-8 text-center shadow-lg border-b-8 border-party-green my-10 animate-bounce-in">
+            <div className="w-full max-w-lg mx-auto bg-white rounded-3xl p-8 text-center shadow-lg border-b-8 border-party-green my-10">
                 <div className="text-6xl mb-4">🎉</div>
                 <h2 className="text-4xl font-party text-party-green mb-4">Yay! You're on the list!</h2>
                 <p className="text-xl text-gray-600">Can't wait to celebrate with you!</p>
@@ -52,7 +52,7 @@ const RSVPForm: React.FC = () => {
 
     return (
         <section className="relative z-10 w-full px-4 py-20">
-            <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-2xl border-b-[12px] border-party-purple p-6 md:p-10 transform -rotate-1 hover:rotate-0 transition-transform duration-500">
+            <form onSubmit={handleSubmit} className="w-full max-w-lg mx-auto bg-white rounded-3xl shadow-2xl border-b-[12px] border-party-purple p-6 md:p-10">
                 <h2 className="text-5xl text-center mb-8 font-party text-party-purple tracking-wider">RSVP</h2>
 
                 <div className="mb-6">
@@ -63,7 +63,7 @@ const RSVPForm: React.FC = () => {
                         className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none transition-all font-body text-lg placeholder-gray-300"
                         value={formData.name}
                         onChange={e => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. Aunt Sarah"
+                        placeholder=""
                     />
                 </div>
 
@@ -141,7 +141,7 @@ const RSVPForm: React.FC = () => {
                         className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none transition-all font-body text-lg h-32 resize-none placeholder-gray-300"
                         value={formData.message}
                         onChange={e => setFormData({ ...formData, message: e.target.value })}
-                        placeholder="Any allergies? Or just a wish!"
+                        placeholder="write a wish or a note"
                     />
                 </div>
 

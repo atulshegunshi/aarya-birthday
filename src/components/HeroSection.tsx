@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const HeroSection: React.FC = () => {
     const [isAltText, setIsAltText] = useState(false);
+    const [clickCount, setClickCount] = useState(0);
 
     const handleScrollDown = () => {
         const target = document.getElementById('info-section');
@@ -33,6 +34,23 @@ const HeroSection: React.FC = () => {
         }
     };
 
+    const handleTextClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+
+        // Increment click count
+        const newCount = clickCount + 1;
+        setClickCount(newCount);
+
+        // Toggle text always
+        setIsAltText(!isAltText);
+
+        // On 2nd click (or subsequent even clicks if we want repeating behavior, but "after two clicks" usually means the 2nd one triggers it)
+        if (newCount >= 2) {
+            handleScrollDown();
+            setClickCount(0); // Reset or keep incrementing? "after two clicks scroll down". Let's reset to allow cycle.
+        }
+    };
+
     return (
         <section
             onClick={handleScrollDown}
@@ -42,25 +60,23 @@ const HeroSection: React.FC = () => {
             {/* Main Content Container */}
             <div className="relative z-10 flex flex-col items-center w-full h-full justify-center pb-20 gap-8">
 
-                <motion.h1
-                    key={isAltText ? "alt" : "main"}
-                    initial={{ y: -20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ type: "spring", bounce: 0.5 }}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setIsAltText(!isAltText);
-                    }}
-                    className="text-6xl md:text-9xl font-party text-white cursor-pointer select-none drop-shadow-2xl"
-                    style={{
-                        textShadow: '4px 4px 0px #000000',
-                        WebkitTextStroke: '2px #000000'
-                    }}
-                >
-                    {isAltText ? "Aarya is turning Five" : "It's my Birthday"}
-                </motion.h1>
+                <AnimatePresence mode="wait">
+                    <motion.h1
+                        key={isAltText ? "alt" : "main"}
+                        initial={{ rotateX: 90, opacity: 0 }}
+                        animate={{ rotateX: 0, opacity: 1 }}
+                        exit={{ rotateX: -90, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                        onClick={handleTextClick}
+                        className="text-6xl md:text-9xl font-party text-party-yellow cursor-pointer select-none drop-shadow-2xl"
+                        style={{
+                            textShadow: '4px 4px 0px #000000',
+                            WebkitTextStroke: '2px #000000'
+                        }}
+                    >
+                        {isAltText ? "Aarya is turning Five" : "It's my Birthday"}
+                    </motion.h1>
+                </AnimatePresence>
             </div>
         </section>
     );
