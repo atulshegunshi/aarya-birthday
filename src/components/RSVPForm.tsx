@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser';
 const RSVPForm: React.FC = () => {
     const [formData, setFormData] = useState({
         name: '',
+        attending: 'yes',
         adults: 1,
         kids: 0,
         message: ''
@@ -23,6 +24,7 @@ const RSVPForm: React.FC = () => {
 
             const templateParams = {
                 from_name: formData.name,
+                attending: formData.attending,
                 adults_count: formData.adults,
                 kids_count: formData.kids,
                 message: formData.message || "No message"
@@ -65,13 +67,43 @@ const RSVPForm: React.FC = () => {
                     />
                 </div>
 
-                <div className="flex gap-4 mb-6">
+                <div className="mb-6 flex gap-4">
+                    <label className="flex-1 cursor-pointer">
+                        <input
+                            type="radio"
+                            name="attending"
+                            value="yes"
+                            checked={formData.attending === 'yes'}
+                            onChange={() => setFormData({ ...formData, attending: 'yes', adults: 1 })}
+                            className="hidden peer"
+                        />
+                        <div className="w-full p-3 rounded-xl border-2 border-gray-200 border-b-4 peer-checked:border-party-green peer-checked:bg-green-50 text-center font-party text-xl text-gray-400 peer-checked:text-party-green transition-all">
+                            Joining the Fun! 🎉
+                        </div>
+                    </label>
+                    <label className="flex-1 cursor-pointer">
+                        <input
+                            type="radio"
+                            name="attending"
+                            value="no"
+                            checked={formData.attending === 'no'}
+                            onChange={() => setFormData({ ...formData, attending: 'no', adults: 0, kids: 0 })}
+                            className="hidden peer"
+                        />
+                        <div className="w-full p-3 rounded-xl border-2 border-gray-200 border-b-4 peer-checked:border-red-400 peer-checked:bg-red-50 text-center font-party text-xl text-gray-400 peer-checked:text-red-500 transition-all">
+                            Can't Join 😔
+                        </div>
+                    </label>
+                </div>
+
+                <div className={`flex gap-4 mb-6 transition-opacity duration-300 ${formData.attending === 'no' ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
                     <div className="flex-1 relative">
                         <label className="block text-party-blue text-xl font-party mb-2 tracking-wide">Adults</label>
                         <div className="relative">
                             <select
-                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none font-body text-lg appearance-none bg-white cursor-pointer"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none font-body text-lg appearance-none bg-white cursor-pointer disabled:cursor-not-allowed"
                                 value={formData.adults}
+                                disabled={formData.attending === 'no'}
                                 onChange={e => setFormData({ ...formData, adults: parseInt(e.target.value) || 0 })}
                             >
                                 {[...Array(6)].map((_, i) => (
@@ -87,8 +119,9 @@ const RSVPForm: React.FC = () => {
                         <label className="block text-party-blue text-xl font-party mb-2 tracking-wide">Kids</label>
                         <div className="relative">
                             <select
-                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none font-body text-lg appearance-none bg-white cursor-pointer"
+                                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 border-b-4 focus:border-party-yellow focus:border-b-party-yellow outline-none font-body text-lg appearance-none bg-white cursor-pointer disabled:cursor-not-allowed"
                                 value={formData.kids}
+                                disabled={formData.attending === 'no'}
                                 onChange={e => setFormData({ ...formData, kids: parseInt(e.target.value) || 0 })}
                             >
                                 {[...Array(6)].map((_, i) => (

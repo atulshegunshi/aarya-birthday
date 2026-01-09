@@ -113,7 +113,7 @@ const InfoSection: React.FC = () => {
     ];
 
     return (
-        <section className="relative z-10 w-full px-4 -mt-10">
+        <section id="info-section" className="relative z-10 w-full px-4 -mt-10">
             {sections.map((section) => (
                 <SectionCard
                     key={section.title}
